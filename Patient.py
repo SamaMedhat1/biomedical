@@ -2,7 +2,8 @@ import imageio.v2 as imageio
 from sympy.codegen.fnodes import cmplx
 import matplotlib.pyplot as plt
 
-class patients:
+
+class patient:
     vol = ''
 
     def __init__(self, dataset_path):
@@ -37,7 +38,7 @@ class patients:
 
         return [d0, d1, d2]
 
-    def dataset_aspect_raito(self, d ):
+    def dataset_aspect_raito(self, d):
         axial_asp = d[1] / d[2]
         # The aspect ratio along the sagittal plane
         sagittal_asp = d[0] / d[1]
@@ -95,8 +96,8 @@ class patients:
         axes[2].axis('off')
         plt.show()
 
-    def print_info(self,  patient_id):
-        #pritn patient information and Image information.
+    def print_info(self, patient_id):
+        # pritn patient information and Image information.
         self.patient_info(patient_id)
 
         # print Shape, Sampling, Pixel Aspect ratio and field of view of the images used.
@@ -104,4 +105,3 @@ class patients:
 
         # show Slice the image to view from different planes
         self.show_patient_image(self, d)
-

@@ -71,13 +71,13 @@ class Patient:
 
     def show_patient_image(self, d):
         # axial image
-        im1 = self.vol[50, :, :]
+        im1 = self.vol[70, :, :]
 
         # coronal image
-        im2 = self.vol[:, 50, :]
+        im2 = self.vol[:, 300, :]
 
         # sagittal image
-        im3 = self.vol[:, :, 50]
+        im3 = self.vol[:, :, 300]
 
         # Compute aspect ratios
         asp1 = d[0] / d[2]
@@ -109,7 +109,8 @@ class Patient:
 
 def _main_():
 
-    path = 'ct_data'
+    path = 'CT_data'
+    # path = '..\\data\\data\\lung_CT CAP_data'
     patient = Patient(path)
     patient.print_info()
 

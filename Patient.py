@@ -3,15 +3,15 @@ from sympy.codegen.fnodes import cmplx
 import matplotlib.pyplot as plt
 
 
-class patient:
+class Patient:
     vol = ''
 
     def __init__(self, dataset_path):
         # Load the "lung_CT CAP_data"" directory
         # D:\Faculty\4th year\2nd term\Biomedical Image Informatics\project\lab project\data\data\lung_data
-        self.dataSet = imageio.volread(dataset_path, format='dicom')
+        self.vol = imageio.volread(dataset_path, format='dicom')
 
-    def patient_info(self, patient_id):
+    def patient_info(self):
         print('Available metadata:', self.vol.meta)
 
     def dataset_shape(self):
@@ -19,7 +19,7 @@ class patient:
         # (Axial, Coronal, and Sagittal, respectively)
         n0, n1, n2 = self.vol.shape
 
-        # Print the ouput
+        # Print the output
         print("Number of Slices:\n\t", "Axial=", n0,
               "Slices\n\t",
               "Coronal=", n1, "Slices\n\t",
@@ -88,7 +88,7 @@ class patient:
         # Draw an images for 3 planes on each subplot
         axes[0].imshow(im1, cmap='gray')
         axes[1].imshow(im2, cmap='gray', aspect=asp1)
-        axes[3].imshow(im3, cmap='gray', aspect=asp2)
+        axes[2].imshow(im3, cmap='gray', aspect=asp2)
 
         # Remove ticks/labels and render
         axes[0].axis('off')
@@ -96,12 +96,21 @@ class patient:
         axes[2].axis('off')
         plt.show()
 
-    def print_info(self, patient_id):
-        # pritn patient information and Image information.
-        self.patient_info(patient_id)
+    def print_info(self):
+        # print patient information and Image information.
+        self.patient_info()
 
         # print Shape, Sampling, Pixel Aspect ratio and field of view of the images used.
         d = self.dataset_info()
 
         # show Slice the image to view from different planes
-        self.show_patient_image(self, d)
+        self.show_patient_image(d)
+
+
+def _main_():
+
+    path = 'ct_data'
+    patient = Patient(path)
+    patient.print_info()
+
+_main_()

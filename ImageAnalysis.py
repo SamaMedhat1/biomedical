@@ -27,7 +27,7 @@ class ImageAnalysis:
           return labels
 
     def extractCancer(self, labels):
-        bboxes = ndi.find_objects(labels == 13)
+        bboxes = ndi.find_objects(labels == 2)
         print('Number of objects:', len(bboxes))
         print('Indices for first box:',
               bboxes[0])
@@ -37,7 +37,11 @@ class ImageAnalysis:
         plt.imshow(im_lv)
         plt.axis('off')
         plt.show()
-
+        hist = ndi.histogram(im_lv, min=0,
+                             max=255, bins=256)
+        plt.plot(hist)
+        plt.suptitle("Histogram")
+        plt.show()
 
 def _main_():
     i = ImageAnalysis()

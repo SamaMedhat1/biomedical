@@ -6,26 +6,28 @@ import numpy as np
 
 
 #dicom_dir
+#ID_0034_AGE_0061_CONTRAST_1_CT.dcm
 class ImageAnalysis:
 
-    image = imageio.imread("dicom_dir/ID_0091_AGE_0072_CONTRAST_0_CT.dcm")
+    image = imageio.imread("dicom_dir/ID_0046_AGE_0072_CONTRAST_1_CT.dcm")
 
-    def segment(self):
-        plt.imshow(self.image, cmap='gray')
-        img_filter = ndi.median_filter(self.image, size=3)
-        mask = np.where(img_filter > 2, 1, 0)
-        mask = ndi.binary_closing(mask)
-        labels, nlabels = ndi.label(mask)
-        print('Num. Labels:', nlabels)
-        overlay = np.where(labels > 0, labels, np.nan)
-        plt.imshow(overlay, cmap='rainbow')
-        # plt.axis('off')
-        # plt.show()
-        return labels
+    def segmentObjects(self):
+          plt.imshow(self.image, cmap='gray')
+          plt.show()
+          im_filt = ndi.median_filter(self.image, size=11)
+          mask_start = np.where(im_filt > 60, 1, 0)
+          mask = ndi.binary_closing(mask_start)
+          labels, nlabels = ndi.label(mask)
+          print('Num. Labels:', nlabels)
+          overlay = np.where(labels > 0, labels,
+                             np.nan)
+          plt.imshow(overlay, cmap='rainbow')
+          #plt.axis('off')
+          plt.show()
+          return labels
 
-    def extract_object(self,label):
-        bboxes = ndi.find_objects(label == 5)
-        # Crop to the left ventricle (index 0)
+    def extractCancer(self, labels):
+        bboxes = ndi.find_objects(labels == 13)
         print('Number of objects:', len(bboxes))
         print('Indices for first box:',
               bboxes[0])
@@ -33,15 +35,15 @@ class ImageAnalysis:
         im_lv = self.image[bboxes[0]]
         # Plot the cropped image
         plt.imshow(im_lv)
-
-
+        plt.axis('off')
+        plt.show()
 
 
 def _main_():
-
     i = ImageAnalysis()
-    l = i.segment()
-    i.extract_object(l)
-
+    labels = i.segmentObjects()
+    i.extractCancer(labels)
 
 _main_()
+
+

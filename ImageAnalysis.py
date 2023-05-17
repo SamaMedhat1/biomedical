@@ -11,31 +11,40 @@ class ImageAnalysis:
 
     def segment_objects(self):
         plt.imshow(self.image, cmap='gray')
+        plt.axis('off')
+        plt.title("original Image")
         plt.show()
-        im_filt = ndi.median_filter(self.image, size=11)
-        mask_start = np.where(im_filt > 60, 1, 0)
-        mask = ndi.binary_closing(mask_start)
-        labels, nlabels = ndi.label(mask)
-        print('Num. Labels:', nlabels)
-        overlay = np.where(labels > 0, labels,
-                           np.nan)
+        # Apply median filter
+        median_filter = ndi.median_filter(self.image, size=11)
+        # show the pixels with intensities greater than 60
+        mask = np.where(median_filter > 60, 1, 0)
+        # using binary closing
+        mask = ndi.binary_closing(mask)
+        # using label to return number of objects and array of objects
+        labels, num_of_labels = ndi.label(mask)
+        print('Num. Labels:', num_of_labels)
+        # show all objects in the image
+        overlay = np.where(labels > 0, labels, np.nan)
         plt.imshow(overlay, cmap='rainbow')
-        # plt.axis('off')
+        plt.axis('off')
+        plt.title("segmented Image")
         plt.show()
         return labels
 
     def extract_cancer(self, labels):
-        bboxes = ndi.find_objects(labels == 2)
-        print('Number of objects:', len(bboxes))
+        # Find bounding box
+        bounding_boxes = ndi.find_objects(labels == 2)
+        print('Number of objects:', len(bounding_boxes))
         print('Indices for first box:',
-              bboxes[0])
-        # Crop to the left ventricle (index 0)
-        im_lv = self.image[bboxes[0]]
+              bounding_boxes[0])
+        # Crop the cancer
+        im_crop = self.image[bounding_boxes[0]]
         # Plot the cropped image
-        plt.imshow(im_lv)
+        plt.imshow(im_crop)
         plt.axis('off')
+        plt.title("Cancer")
         plt.show()
-        hist = ndi.histogram(im_lv, min=0,
+        hist = ndi.histogram(im_crop, min=0,
                              max=255, bins=256)
         plt.plot(hist)
         plt.suptitle("Histogram")
@@ -46,7 +55,7 @@ class ImageAnalysis:
         dimension_of_pixels = d1 * d2
         # Count label pixels
         num_of_pixels = ndi.sum(1, labels, index=2)
-        # Calculate volume of label
+        # Calculate area of label
         area = num_of_pixels * dimension_of_pixels
         print("the area is = ", area)
 
@@ -57,8 +66,8 @@ class ImageAnalysis:
         print("the distance In terms of background = ", d.max())
 
     def center_mass(self, labels):
-        coms = ndi.center_of_mass(self.image, labels, index=2)
-        print('the center :', coms)
+        center = ndi.center_of_mass(self.image, labels, index=2)
+        print('the center :', center)
 
     def thresholding(self, thershold):
         return self.image > thershold
@@ -103,6 +112,7 @@ class ImageAnalysis:
         edges = np.sqrt(np.square(sobel_ax0) +
                         np.square(sobel_ax1))
         return edges
+
 
 
 '''

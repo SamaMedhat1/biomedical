@@ -1,4 +1,6 @@
 from tkinter import *
+
+import classification
 from Patient import *
 from ImageAnalysis import *
 from classification import *
@@ -53,26 +55,27 @@ def CheckBtn2():
 
 
 def CheckBtn3():
+    classefier = classification()
     path1 = cv2.imread('Cofield.45.jpg', 0)
-    print_c(path1)
+    classefier.print_c(path1)
 
     path2 = cv2.imread('Cofield.70.jpg', 0)
-    print_c(path2)
+    classefier.print_c(path2)
 
     path3 = cv2.imread('Depuy.236.jpg', 0)
-    print_c(path3)
+    classefier.print_c(path3)
     path4 = cv2.imread('Depuy.250.jpg', 0)
-    print_c(path4)
+    classefier.print_c(path4)
 
     path5 = cv2.imread('Tornier.65.jpg', 0)
-    print_c(path5)
+    classefier.print_c(path5)
     path6 = cv2.imread('Tornier.67.jpg', 0)
-    print_c(path6)
+    classefier.print_c(path6)
 
     path7 = cv2.imread('Zimmer.135.jpg', 0)
-    print_c(path7)
+    classefier.print_c(path7)
     path8 = cv2.imread('Zimmer.148.jpg', 0)
-    print_c(path8)
+    classefier.print_c(path8)
 
 
 # button for Task 1

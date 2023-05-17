@@ -78,20 +78,36 @@ class ImageAnalysis:
         plt.show()
 
     def apply_morphological_operation(self):
-        mask = self.image > 2
-        self.print_image(mask)
+        # original image
+        plt.imshow(self.image, cmap='gray')
+        plt.suptitle('original')
+        plt.axis('off')
+        plt.show()
 
-        # noise reduction
-        mask = ndi.binary_erosion(mask, iterations=2)
-        mask = ndi.binary_dilation(mask, iterations=2)
-        self.print_image(mask)
+        self.print_histogram(self.image)
 
-        # fill gaps
-        mask = ndi.binary_dilation(mask, iterations=25)
-        mask = ndi.binary_erosion(mask, iterations=25)
-        self.print_image(mask)
+        # thresholding
+        mask_thresholding = self.image > 2
 
-        return mask
+        plt.imshow(mask_thresholding, cmap='gray')
+        plt.suptitle('thresholding')
+        plt.axis('off')
+        plt.show()
+
+        # opening
+        mask_opening = ndi.binary_opening(mask_thresholding, iterations=2)
+
+        plt.imshow(mask_opening, cmap='gray')
+        plt.suptitle('opening mask')
+        plt.axis('off')
+        plt.show()
+
+        new_image = mask_opening * self.image
+
+        plt.imshow(new_image, cmap='gray')
+        plt.suptitle('new image after opening')
+        plt.axis('off')
+        plt.show()
 
     def print_histogram(self, image):
         hist = ndi.histogram(image, min=0,
@@ -103,7 +119,12 @@ class ImageAnalysis:
     def feature_detection(self):
         weights = [[+1, 0, -1], [+1, 0, -1], [+1, 0, -1]]
 
-        return ndi.convolve(self.image, weights)
+        mask = ndi.convolve(self.image, weights)
+
+        plt.imshow(mask, cmap='gray')
+        plt.suptitle('mask for feature detection')
+        plt.axis('off')
+        plt.show()
 
     def edge_detection(self):
         sobel_ax0 = ndi.sobel(self.image, axis=0)
@@ -111,8 +132,11 @@ class ImageAnalysis:
 
         edges = np.sqrt(np.square(sobel_ax0) +
                         np.square(sobel_ax1))
-        return edges
 
+        plt.imshow(edges, cmap='gray')
+        plt.suptitle('mask for edge detection')
+        plt.axis('off')
+        plt.show()
 
 
 '''

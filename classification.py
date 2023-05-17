@@ -14,7 +14,7 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 
 
-class classification:
+class Classification:
     Train_Data_Directory = r'train'
     Test_Data_Directory = r'test'
     Image_Size = 224
@@ -117,11 +117,10 @@ class classification:
 
 
     def print_c(self, img):
-        c = classification()
-        test_img = cv2.resize(img, (c.Image_Size, c.Image_Size))
+        test_img = cv2.resize(img, (self.Image_Size, self.Image_Size))
         test_img = cv2.equalizeHist(test_img)
-        test_img = test_img.reshape(c.Image_Size, c.Image_Size, 1)
-        prediction = c.model.predict([test_img])[0]
+        test_img = test_img.reshape(self.Image_Size, self.Image_Size, 1)
+        prediction = self.model.predict([test_img])[0]
         skimage.io.imshow(img)
 
         print(f"Cofield: {prediction[0]}, Depuy: {prediction[1]}, Tornier: {prediction[2]}, Zimmer: {prediction[3]}")

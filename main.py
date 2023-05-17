@@ -55,27 +55,27 @@ def CheckBtn2():
 
 
 def CheckBtn3():
-    classefier = classification()
+    classifier = Classification()
     path1 = cv2.imread('Cofield.45.jpg', 0)
-    classefier.print_c(path1)
+    classifier.print_c(path1)
 
     path2 = cv2.imread('Cofield.70.jpg', 0)
-    classefier.print_c(path2)
+    classifier.print_c(path2)
 
     path3 = cv2.imread('Depuy.236.jpg', 0)
-    classefier.print_c(path3)
+    classifier.print_c(path3)
     path4 = cv2.imread('Depuy.250.jpg', 0)
-    classefier.print_c(path4)
+    classifier.print_c(path4)
 
     path5 = cv2.imread('Tornier.65.jpg', 0)
-    classefier.print_c(path5)
+    classifier.print_c(path5)
     path6 = cv2.imread('Tornier.67.jpg', 0)
-    classefier.print_c(path6)
+    classifier.print_c(path6)
 
     path7 = cv2.imread('Zimmer.135.jpg', 0)
-    classefier.print_c(path7)
+    classifier.print_c(path7)
     path8 = cv2.imread('Zimmer.148.jpg', 0)
-    classefier.print_c(path8)
+    classifier.print_c(path8)
 
 
 # button for Task 1

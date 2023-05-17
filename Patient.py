@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 
 class Patient:
     vol = ''
+    patient_info_keys = ['PatientName', 'PatientID', 'PatientBirthDate', 'PatientSex', 'PatientAge', 'PatientSize', 'PatientWeight']
+    image_info_keys = ['ImagePositionPatient', 'ImageOrientationPatient', 'SamplesPerPixel', 'Rows', 'Columns',
+                        'PixelSpacing','HighBit', 'PixelRepresentation', 'RescaleIntercept', 'RescaleSlope','HighBit',
+                        'PixelRepresentation', 'RescaleIntercept', 'RescaleSlope']
 
     def __init__(self, dataset_path: object) -> object:
         # Load the "lung_CT CAP_data"" directory
@@ -13,7 +17,15 @@ class Patient:
         self.vol = imageio.volread(dataset_path, format='dicom')
 
     def patient_info(self):
-        print('Available metadata:', self.vol.meta)
+        # print('Available metadata:', self.vol.meta())
+        print('patient info')
+        for key in self.patient_info_keys:
+            print(key, ': ', self.vol.meta[key])
+
+    def image_info(self):
+        print('image info')
+        for key in self.image_info_keys:
+            print(key, ': ', self.vol.meta[key])
 
     def dataset_shape(self):
         # The shape of the stacked images in each plane
@@ -98,8 +110,10 @@ class Patient:
         plt.show()
 
     def print_info(self):
-        # print patient information and Image information.
+        # print patient information.
         self.patient_info()
+        # print Image information.
+        self.image_info()
 
         # print Shape, Sampling, Pixel Aspect ratio and field of view of the images used.
         d = self.dataset_info()
@@ -108,11 +122,11 @@ class Patient:
         self.show_patient_image(d)
 
 
-#def _main_():
- #   path = '3.000000-Lung 3.0-46505'
-  #  # path = '..\\data\\data\\lung_CT CAP_data'
-   # patient = Patient(path)
-    #patient.print_info()
+# def _main_():
+#     path = '3.000000-Lung 3.0-46505'
+#    # path = '..\\data\\data\\lung_CT CAP_data'
+#     patient = Patient(path)
+#     patient.print_info()
 
 
-#_main_()
+# _main_()

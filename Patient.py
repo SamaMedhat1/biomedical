@@ -1,11 +1,13 @@
+
 import imageio.v2 as imageio
+from sympy.codegen.fnodes import cmplx
 import matplotlib.pyplot as plt
 
 
 class Patient:
     vol = ''
 
-    def __init__(self, dataset_path):
+    def __init__(self, dataset_path: object) -> object:
         # Load the "lung_CT CAP_data"" directory
         # D:\Faculty\4th year\2nd term\Biomedical Image Informatics\project\lab project\data\data\lung_data
         self.vol = imageio.volread(dataset_path, format='dicom')
@@ -106,11 +108,11 @@ class Patient:
         self.show_patient_image(d)
 
 
-def _main_():
+#def _main_():
+ #   path = '3.000000-Lung 3.0-46505'
+  #  # path = '..\\data\\data\\lung_CT CAP_data'
+   # patient = Patient(path)
+    #patient.print_info()
 
-    path = 'CT_data'
-    # path = '..\\data\\data\\lung_CT CAP_data'
-    patient = Patient(path)
-    patient.print_info()
 
-_main_()
+#_main_()

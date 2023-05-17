@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 
 class Patient:
     vol = ''
-    patient_info_keys = ['PatientName', 'PatientID', 'PatientBirthDate', 'PatientSex', 'PatientAge', 'PatientSize', 'PatientWeight']
-    image_info_keys = ['ImagePositionPatient', 'ImageOrientationPatient', 'SamplesPerPixel', 'Rows', 'Columns',
-                        'PixelSpacing','HighBit', 'PixelRepresentation', 'RescaleIntercept', 'RescaleSlope','HighBit',
-                        'PixelRepresentation', 'RescaleIntercept', 'RescaleSlope']
+    patient_info_keys = ['PatientName', 'PatientID', 'PatientBirthDate', 'PatientSex', 'PatientAge','SeriesNumber']
+    image_info_keys = ['Modality','ImagePositionPatient', 'ImageOrientationPatient', 'SamplesPerPixel', 'Rows', 'Columns',
+                       'PixelSpacing', 'HighBit', 'PixelRepresentation', 'RescaleIntercept', 'RescaleSlope', 'PixelData',
+                       'shape', 'sampling']
 
     def __init__(self, dataset_path: object) -> object:
         # Load the "lung_CT CAP_data"" directory

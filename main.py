@@ -31,12 +31,11 @@ def CheckBtn2():
     image_analysis = ImageAnalysis()
 
     # point one / task 2
-    ImageAnalysis.apply_morphological_operation()
+    image_analysis.apply_morphological_operation()
 
     # point two/ task 2
-    feature = image_analysis.feature_detection()
-    ImageAnalysis.feature_detection()
-    ImageAnalysis.edge_detection()
+    image_analysis.feature_detection()
+    image_analysis.edge_detection()
 
     # point three and four / task 2
     labels = image_analysis.segment_objects()

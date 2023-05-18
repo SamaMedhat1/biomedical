@@ -24,7 +24,7 @@ class ImageAnalysis:
         labels, num_of_labels = ndi.label(mask)
         print('Num. Labels:', num_of_labels)
         # show all objects in the image
-        overlay = np.where(labels > 0, labels, np.nan)
+        overlay = np.where(labels == 2 , labels, np.nan)
         plt.imshow(overlay, cmap='rainbow')
         plt.axis('off')
         plt.title("segmented Image")
@@ -97,17 +97,74 @@ class ImageAnalysis:
         # opening
         mask_opening = ndi.binary_opening(mask_thresholding, iterations=2)
 
+        # show opening mask
         plt.imshow(mask_opening, cmap='gray')
         plt.suptitle('opening mask')
         plt.axis('off')
         plt.show()
 
+        # show new image after opening
         new_image = mask_opening * self.image
 
         plt.imshow(new_image, cmap='gray')
         plt.suptitle('new image after opening')
         plt.axis('off')
         plt.show()
+        self.print_histogram(new_image)
+
+        # closing
+        mask_closing = ndi.binary_closing(mask_thresholding, iterations=2)
+
+        # show closing mask
+        plt.imshow(mask_closing, cmap='gray')
+        plt.suptitle('closing mask')
+        plt.axis('off')
+        plt.show()
+
+        # show new image after closing
+        new_image = mask_closing * self.image
+
+        plt.imshow(new_image, cmap='gray')
+        plt.suptitle('new image after closing')
+        plt.axis('off')
+        plt.show()
+        self.print_histogram(new_image)
+
+        # erosion
+        mask_erosion = ndi.binary_erosion(mask_thresholding, iterations=2)
+
+        # show erosion mask
+        plt.imshow(mask_erosion, cmap='gray')
+        plt.suptitle('erosion mask')
+        plt.axis('off')
+        plt.show()
+
+        # show new image after erosion
+        new_image = mask_erosion * self.image
+
+        plt.imshow(new_image, cmap='gray')
+        plt.suptitle('new image after erosion')
+        plt.axis('off')
+        plt.show()
+        self.print_histogram(new_image)
+
+        # dilation
+        mask_dilation = ndi.binary_dilation(mask_thresholding, iterations=2)
+
+        # show closing mask
+        plt.imshow(mask_dilation, cmap='gray')
+        plt.suptitle('dilation mask')
+        plt.axis('off')
+        plt.show()
+
+        # show new image after dilation
+        new_image = mask_dilation * self.image
+
+        plt.imshow(new_image, cmap='gray')
+        plt.suptitle('new image after dilation')
+        plt.axis('off')
+        plt.show()
+        self.print_histogram(new_image)
 
     def print_histogram(self, image):
         hist = ndi.histogram(image, min=0,
